@@ -1,0 +1,15 @@
+INSERT INTO score_tracker (user_id, score) VALUES ('xmas', 100);
+INSERT INTO score_tracker (user_id, score) VALUES ('putin', 101);
+INSERT INTO score_tracker (user_id, score) VALUES ('modi', 102);
+INSERT INTO score_tracker (user_id, score) VALUES ('biden', 103);
+INSERT INTO score_tracker (user_id, score) VALUES ('Sunny', 104);
+INSERT INTO score_tracker (user_id, score) VALUES ('bob',    106);
+INSERT INTO score_tracker (user_id, score) VALUES ('man', 107);
+INSERT INTO score_tracker (user_id, score) VALUES ('abcd', 108);
+INSERT INTO score_tracker (user_id, score) VALUES ('adi',  109);
+INSERT INTO score_tracker (user_id, score) VALUES ('ram', 110);
+INSERT INTO score_tracker (user_id, score) VALUES ('ramesh',    200);
+INSERT INTO score_tracker (user_id, score) VALUES ('suresh', 201);
+INSERT INTO score_tracker (user_id, score) VALUES ('pan', 202);
+INSERT INTO score_tracker (user_id, score) VALUES ('mukesh',  203);
+INSERT INTO score_tracker (user_id, score) VALUES ('abhi', 204);
