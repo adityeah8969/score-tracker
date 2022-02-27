@@ -1,11 +1,15 @@
 package com.scoretracker.scoretracker.controller;
-
-import java.util.List;
-
 import com.scoretracker.scoretracker.model.ScoreEntity;
 import com.scoretracker.scoretracker.service.ScoreTrackerService;
+import com.scoretracker.scoretracker.util.HelperUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
+
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,10 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@Validated
 public class ScoreTrackerController {
 
 	@Autowired
 	private ScoreTrackerService scoreTrackerService;
+
+	@Autowired
+	private HelperUtils helperUtils;
 
     @GetMapping("/scores")
 	public List<ScoreEntity> getAllScores() {
@@ -46,11 +54,30 @@ public class ScoreTrackerController {
 		scoreTrackerService.deleteScore(id);
 	}
 
+	// Above can be disabled, just used for testing
+	// Following are the only controllers important to the application.
+
 	@PostMapping("/addScore")
-	public String addScoreEntity(@RequestBody ScoreEntity scoreEntity) {
+	public String addScoreEntity(@Valid @RequestBody ScoreEntity scoreEntity) {
 		scoreTrackerService.addToDB(scoreEntity);
+		scoreTrackerService.addToTrackingMap(scoreEntity);
 		return "score added asynchronously";
 	}
 
+	@GetMapping("/getBestScores")
+	public String getBestScores() {
+		TreeMap<Integer, ArrayList<ScoreEntity>> scoreTrackingMap = scoreTrackerService.getScoreTrackingMap();
+		if (scoreTrackingMap == null || scoreTrackingMap.size() == 0) {
+			return "No scores found";
+		} else {
+			return helperUtils.beautifyResponse(scoreTrackingMap);
+		}
+	}
+
+	@PostMapping("/generateScoreTrackingMap")
+	public String generateScoreTrackingMap() {
+		scoreTrackerService.generateScoreTrackingMap();
+		return "generating the results";
+	}
 
 }

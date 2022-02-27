@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @ToString
@@ -14,17 +15,23 @@ public class ScoreEntity implements Serializable {
 
     @Id 
     @Column(name = "user_id") 
+    @NotBlank(message = "userId is mandatory")
     private String userId;
+
+    @Column(name = "user_name")
+    @NotBlank(message = "userName is mandatory")
+    private String userName;
     
     @Column(name = "score")
     private int score;
 
-    public ScoreEntity(String userId, int score) {
+    public ScoreEntity(){}
+
+    public ScoreEntity(String userId, String userName, int score) {
         this.userId = userId;
+        this.userName = userName;
         this.score = score;
     }
-    
-    public ScoreEntity(){}
 
     public String getUserId() {
         return userId;
@@ -40,6 +47,14 @@ public class ScoreEntity implements Serializable {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
 
